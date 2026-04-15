@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lokesh Prasai | TechAstra Solutions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #0a0b10;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --accent-purple: #8b5cf6;
+            --accent-blue: #3b82f6;
+            --text-main: #ffffff;
+            --text-dim: #a1a1aa;
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* --- BACKGROUND GRADIENTS --- */
+        .blob {
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+            z-index: -1;
+            filter: blur(80px);
+        }
+
+        .blob-1 {
+            top: -100px;
+            right: -100px;
+        }
+
+        .blob-2 {
+            bottom: -100px;
+            left: -100px;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 11, 16, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            transition: transform 0.2s ease;
+        }
+
+        .logo-container:hover {
+            transform: scale(1.02);
+        }
+
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 5px;
+            object-fit: cover;
+        }
+
+        .logo-text {
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: var(--text-main);
+            white-space: nowrap;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text-main);
+        }
+
+        /* --- SECTIONS --- */
+        section {
+            min-height: 100vh;
+            padding: 120px 10% 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* --- HERO --- */
+        #home {
+            flex-direction: row;
+            align-items: center;
+            gap: 5%;
+        }
+
+        .hero-content {
+            flex: 1.2;
+        }
+
+        .hero-image {
+            flex: 0.8;
+            display: flex;
+            justify-content: center;
+        }
+
+        .hero-image img {
+            width: 100%;
+            max-width: 450px;
+            border-radius: 24px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-p {
+            color: var(--text-dim);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            max-width: 550px;
+        }
+
+        .btn {
+            padding: 12px 28px;
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        /* --- PROJECTS --- */
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-blue);
+        }
+
+        .project-img-wrapper {
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .project-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s;
+        }
+
+        .project-card:hover .project-img-wrapper img {
+            scale: 1.1;
+        }
+
+        .project-info {
+            padding: 1.5rem;
+        }
+
+        .project-info h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.25rem;
+        }
+
+        .project-info p {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        /* --- SKILLS --- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            text-align: center;
+        }
+
+        .skill-card i {
+            font-size: 1.8rem;
+            color: var(--accent-blue);
+            margin-bottom: 1rem;
+        }
+
+        /* --- CONTACT --- */
+        .contact-container {
+            display: flex;
+            gap: 3rem;
+            background: var(--card-bg);
+            padding: 3rem;
+            border-radius: 24px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .contact-form {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        input,
+        textarea {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--glass-border);
+            padding: 0.8rem;
+            border-radius: 8px;
+            color: white;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.2rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem;
+            border-top: 1px solid var(--glass-border);
+            color: var(--text-dim);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 968px) {
+            nav {
+                padding: 1rem 5%;
+            }
+
+            .logo-text {
+                font-size: 1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            /* Add hamburger menu if needed */
+            #home {
+                flex-direction: column-reverse;
+                text-align: center;
+            }
+
+            .hero-image img {
+                max-width: 300px;
+                margin-bottom: 2rem;
+            }
+
+            .contact-container {
+                flex-direction: column;
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <nav>
+        <a href="#home" class="logo-container">
+            <img src="D:\Project\Portfolio\Tech_Astra.png" alt="TechAstra Logo" class="logo-img">
+            <span class="logo-text">TechAstra Solutions</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="#home" class="active">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#contact" class="btn" style="padding: 8px 20px;">Hire Me</a></li>
+        </ul>
+    </nav>
+
+    <section id="home">
+        <div class="hero-content">
+            <p style="color: var(--accent-blue); font-weight: 600; margin-bottom: 0.5rem; letter-spacing: 1px;">
+                BIRTAMODE, JHAPA, NEPAL</p>
+            <h1>Lokesh <span class="gradient-text">Prasai</span></h1>
+            <p class="hero-p">Cybersecurity Specialist, AI/ML Developer, and Web Architect. Building the next generation
+                of secure, intelligent technology.</p>
+            <div style="display: flex; gap: 1rem; justify-content: inherit;">
+                <a href="#projects" class="btn">Recent Projects</a>
+                <a href="mailto:laxmiprasai98@gmail.com" class="btn"
+                    style="background: transparent; border: 1px solid var(--glass-border);">Email Me</a>
+            </div><br />
+
+            <div style="margin-top: 2rem; display: flex; gap: 3.5rem; font-size: 2rem;">
+                <a href="https://github.com/TechAstra-Lok/" target="_blank" style="color: var(--text-dim);"><i
+                        class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/lokesh-prasai/" target="_blank" style="color: var(--text-dim);"><i
+                        class="fab fa-linkedin"></i></a>
+                <a href="https://www.facebook.com/lokesh.prasai1" target="_blank" style="color: var(--text-dim);"><i
+                        class="fab fa-facebook"></i></a>
+                <a href="https://www.instagram.com/timro_loku/" target="_blank" style="color: var(--text-dim);"><i
+                        class="fab fa-instagram"></i></a>
+            </div>
+
+        </div>
+        <div class="hero-image">
+            <img src="D:\Project\Portfolio\Profile.png" alt="Lokesh Prasai">
+        </div>
+    </section>
+
+    <section id="about">
+        <h2 class="section-title">My Expertise</h2>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Cyber Security</h3>
+                <p>Protecting infrastructures with modern security protocols and defensive strategies.</p>
+            </div>
+            <div class="skill-card">
+                <i class="fas fa-brain"></i>
+                <h3>AI/ML Developer</h3>
+                <p>Crafting intelligent algorithms and predictive models to solve complex problems.</p>
+            </div>
+            <div class="skill-card">
+                <i class="fas fa-code"></i>
+                <h3>Web Development</h3>
+                <p>Building responsive, high-performance web applications using modern frameworks.</p>
+            </div>
+            <div class="skill-card">
+                <i class="fas fa-bug"></i>
+                <h3>Pentest Tester</h3>
+                <p>Identifying vulnerabilities before they can be exploited by malicious actors.</p>
+            </div>
+            <div class="skill-card">
+                <i class="fas fa-car"></i>
+                <h3>Driving Instructor</h3>
+                <p>Professional guidance and safety instruction for aspiring drivers.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="project-grid">
+            <div class="project-card">
+                <div class="project-img-wrapper">
+                    <img src="D:\Project\Portfolio\protect_yourself.png" alt="Protect Yourself">
+                </div>
+                <div class="project-info">
+                    <h3>Protect Yourself</h3>
+                    <p>Advanced Cyber Threat Analyzer featuring live global attack visualization and signature
+                        detection.</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-img-wrapper">
+                    <img src="D:\Project\Portfolio\Ai_Meeting.png" alt="AI Minutes">
+                </div>
+                <div class="project-info">
+                    <h3>AI Meeting Minutes</h3>
+                    <p>Intelligence platform for automated meeting transcription, task extraction, and analytics
+                        dashboard.</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-img-wrapper">
+                    <img src="D:\Project\Portfolio\hamro_ghar_jagga.png" alt="Hamro Ghar Jagga">
+                </div>
+                <div class="project-info">
+                    <h3>Hamro Ghar Jagga</h3>
+                    <p>A specialized Real Estate Management System tailored for land properties and mapping in Nepal.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2 class="section-title">Let's Connect</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="info-item"><i class="fas fa-envelope"></i><span>laxmiprasai98@gmail.com</span></div>
+                <div class="info-item"><i class="fas fa-phone"></i><span>+977 9816003020</span></div>
+                <div class="info-item"><i class="fas fa-map-marker-alt"></i><span>Birtamode, Jhapa</span></div>
+                <div style="margin-top: 2rem; display: flex; gap: 1.5rem; font-size: 1.5rem;">
+                    <a href="https://github.com/TechAstra-Lok/" target="_blank" style="color: var(--text-dim);"><i
+                            class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/lokesh-prasai/" target="_blank"
+                        style="color: var(--text-dim);"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://www.facebook.com/lokesh.prasai1" target="_blank" style="color: var(--text-dim);"><i
+                            class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/timro_loku/" target="_blank" style="color: var(--text-dim);"><i
+                            class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <form class="contact-form">
+                <input type="text" placeholder="Full Name">
+                <input type="email" placeholder="Email Address">
+                <textarea rows="4" placeholder="How can TechAstra help you?"></textarea>
+                <button type="submit" class="btn">Send Inquiry</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 TechAstra Solutions. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Navigation Logic
+        const sections = document.querySelectorAll("section");
+        const navLinks = document.querySelectorAll(".nav-links a");
+
+        window.addEventListener("scroll", () => {
+            let current = "";
+            sections.forEach((section) => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 150) {
+                    current = section.getAttribute("id");
+                }
+            });
+
+            navLinks.forEach((a) => {
+                a.classList.remove("active");
+                if (a.getAttribute("href").includes(current)) {
+                    a.classList.add("active");
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
