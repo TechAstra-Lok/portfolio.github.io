@@ -155,7 +155,7 @@
             <div class="hero-content">
                 <p style="color: var(--accent-blue); font-weight: 600; margin-bottom: 0.5rem; letter-spacing: 2px; text-transform: uppercase;">
                     Birtamode, Jhapa, Nepal</p>
-                <h1>Lokesh <span class="gradient-text">Prasai</span></h1>  <img src="https://giwmscdntwo.gov.np/static/grapejs/img/Nepal-flag.gif" alt="Flag" style="height: 45px; width: auto;">
+                <h1>Lokesh <span class="gradient-text">Prasai</span> &nbsp <img src="https://giwmscdntwo.gov.np/static/grapejs/img/Nepal-flag.gif" alt="Flag" style="height: 45px; width: auto;"></h1> 
                 <p class="hero-p">Cybersecurity Specialist, AI/ML Developer, and Web Architect. Building secure, intelligent, and human-centric technology.</p>
                 
                 <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
@@ -239,13 +239,36 @@
             </div>
         </section>
 
+       <!-- START CONTACT SECTION -->
         <section id="contact">
             <h2 class="section-title">Let's Connect</h2>
+            
+            <!-- Success and Error Messaging UI -->
+            <div id="status-container" style="max-width: 600px; margin: 0 auto 1.5rem auto;">
+                <div id="form-status-success" data-fs-success style="display:none; background: rgba(16, 185, 129, 0.1); border: 1px solid #10b981; padding: 1rem; border-radius: 12px; text-align: center; color: #10b981; font-weight: 500;">
+                    <i class="fas fa-check-circle" style="margin-right: 8px;"></i> Secure message sent! I will get back to you shortly.
+                </div>
+                <div id="form-status-error" data-fs-error style="display:none; background: rgba(239, 68, 68, 0.1); border: 1px solid #ef4444; padding: 1rem; border-radius: 12px; text-align: center; color: #ef4444; font-weight: 500;">
+                    <i class="fas fa-exclamation-triangle" style="margin-right: 8px;"></i> Oops! Something went wrong. Please check the fields and try again.
+                </div>
+            </div>
+        
             <div class="contact-container">
+                <!-- Sidebar Info -->
                 <div class="contact-info">
-                    <div class="info-item"><i class="fas fa-envelope" aria-hidden="true"></i><span>laxmiprasai98@gmail.com</span></div><br>
-                    <div class="info-item"><i class="fas fa-phone" aria-hidden="true"></i><span>+977 9816003020</span></div><br>
-                    <div class="info-item"><i class="fas fa-map-marker-alt" aria-hidden="true"></i><span>Birtamode, Jhapa, Nepal</span></div><br>
+                    <div class="info-item">
+                        <i class="fas fa-envelope" aria-hidden="true"></i>
+                        <span>laxmiprasai98@gmail.com</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-phone" aria-hidden="true"></i>
+                        <span>+977 9816003020</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                        <span>Birtamode, Jhapa, Nepal</span>
+                    </div>
+                    
                     <div style="margin-top: 3rem; display: flex; gap: 2rem; font-size: 1.8rem;">
                         <a href="https://github.com/TechAstra-Lok/" target="_blank" rel="noopener noreferrer" style="color: var(--text-dim);" aria-label="GitHub Profile"><i class="fab fa-github"></i></a>
                         <a href="https://www.linkedin.com/in/lokesh-prasai/" target="_blank" rel="noopener noreferrer" style="color: var(--text-dim);" aria-label="LinkedIn Profile"><i class="fab fa-linkedin"></i></a>
@@ -253,15 +276,53 @@
                         <a href="https://www.instagram.com/timro_loku/" target="_blank" rel="noopener noreferrer" style="color: var(--text-dim);" aria-label="Instagram Profile"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
-                <!-- Note: Replace the action URL with your Formspree/Backend endpoint -->
-                <form action="https://formspree.io/f/your-id" method="POST" class="contact-form">
-                    <input type="text" name="name" placeholder="Your Name" required>
-                    <input type="email" name="email" placeholder="Your Email" required>
-                    <textarea name="message" rows="5" placeholder="How can I help you today?" required></textarea>
-                    <button type="submit" class="btn">Send Secure Message</button>
+        
+                <!-- High-Security AJAX Form -->
+                <form id="contact-form" class="contact-form">
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <input type="text" name="name" placeholder="Full Name" required data-fs-field>
+                        <input type="email" name="email" placeholder="Email Address" required data-fs-field>
+                        <textarea name="message" rows="5" placeholder="How can TechAstra help you?" required data-fs-field></textarea>
+                        
+                        <button type="submit" class="btn" data-fs-submit-btn>
+                            Send Secure Message
+                        </button>
+                        
+                        <p style="font-size: 0.75rem; color: var(--text-dim); margin-top: 0.5rem; text-align: center;">
+                            <i class="fas fa-lock" style="font-size: 0.7rem;"></i> End-to-end encrypted submission via Formspree AJAX.
+                        </p>
+                    </div>
                 </form>
             </div>
         </section>
+
+        <!-- Include Formspree AJAX Library and Initialization Logic -->
+        <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
+        <script>
+            // Ensure formspree queue is ready
+            window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
+            
+            // Initialize the form with TechAstra's specific ID
+            formspree('initForm', { 
+                formElement: '#contact-form', 
+                formId: 'xzdogvnl',
+                onSuccess: function() {
+                    // Smoothly hide the form and show success UI
+                    const form = document.getElementById('contact-form');
+                    form.style.transition = 'opacity 0.4s ease';
+                    form.style.opacity = '0';
+                    
+                    setTimeout(() => {
+                        form.style.display = 'none';
+                        const successMsg = document.getElementById('form-status-success');
+                        successMsg.style.display = 'block';
+                        // Optional: Scroll back to the success message
+                        successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 400);
+                }
+            });
+        </script>
+<!-- END CONTACT SECTION -->
     </main>
 
     <footer>
